@@ -28,7 +28,7 @@ With Rails
       # setup Rails.cache to be redis_renew
       # and set the renewal expiry to be 30 seconds
       # with each access the expiry is extended 30 seconds
-      config.cache_store = :redis_renew, config.redis_connections['cache'], :renew_expires_in => 30.seconds
+      config.cache_store = :redis_renew, config.redis_connections['cache'], { :renew_expires_in => 30.seconds }
     end
   end
 ```
