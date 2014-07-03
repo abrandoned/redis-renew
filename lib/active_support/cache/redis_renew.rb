@@ -29,7 +29,7 @@ module ActiveSupport
           end
         else
           entry = super # do nothing and manually reset expiry
-          expire(key, renew_expires_in)
+          @data.expire(key, renew_expires_in)
           entry
         end
       rescue Errno::ECONNREFUSED, Redis::CannotConnectError
@@ -39,7 +39,10 @@ module ActiveSupport
       private
 
       def connection_supports_multi?
-        @data.respond_to?(:multi)
+        false
+        # redis-store changes the interface to a redis connection
+        # so the `get` override kills multi
+        # @data.respond_to?(:multi) 
       end
     end
   end
